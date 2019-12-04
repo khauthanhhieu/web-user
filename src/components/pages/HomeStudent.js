@@ -2,15 +2,15 @@ import React from 'react';
 import Cover from '../Cover';
 import BodyComponent from '../BodyComponent';
 
-class HomeTeacher extends React.Component {
+class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<Cover/>
-        <div>Trang web giành cho giảng viên</div>
+			    <Cover/>
+        	<BodyComponent/>
 			</div>
 		);
 	}
 }
 
-export default HomeTeacher;
+export default Home;
