@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-image: url("./background/BGLogin.jpg");
+  background-repeat: repeat-x;
 }
 
 .App-logo {
