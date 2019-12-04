@@ -1,15 +1,18 @@
 import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import Home from './components/pages/HomeTeacher';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import store from './store';
 
 function App() {
   return (
+    <Provider store = {store}>
       <Router>
         <div className="App" 
             style={{  
@@ -26,6 +29,7 @@ function App() {
           <Footer/>
         </div>
       </Router>
+    </Provider>
   );
 }
 

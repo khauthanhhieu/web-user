@@ -1,44 +1,57 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logoutUser } from '../actions/authentication';
 // eslint-disable-next-line react/prefer-stateless-function
 class Navbar extends Component {
+  onLogout(e) {
+    e.preventDefault();
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.logoutUser(this.props.history);
+  }
 
   render() {
+    const { isAuthenticated, user } = this.props.auth;
     const authLinks = (
-        <ul className="navbar-nav ml-auto">
-            <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <ul className="navbar-nav ml-auto">
+        <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
+          <img src={user.avatar} alt={user.name} title={user.name}
+              className="rounded-circle"
+              style={{ width: '25px', marginRight: '5px'}} />
+              Logout
+        </a>
+      </ul>
+    );
 
-                </Link>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <Link className="dropdown-item" to="/contact">Cập nhật thông tin</Link>
-                    <Link className="dropdown-item" to="/about">Đăng xuất</Link>
-                </div>
-            </li>
-        </ul>
-        )
-      
-      const guestLinks = (
-        <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-                <Link className="nav-link" to="/sign-up">Đăng ký</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/sign-in">Đăng nhập</Link>
-            </li>
-        </ul>
-      )
-        return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">GIA SƯ TRỰC TUYẾN</Link>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    { guestLinks}
-                </div>
-            </nav>
-        )
-    }
+    const guestLinks = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/sign-up">Đăng ký</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/sign-in">Đăng nhập</Link>
+        </li>
+      </ul>
+    );
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link className="navbar-brand" to="/">GIA SƯ TRỰC TUYẾN</Link>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          {isAuthenticated ? authLinks : guestLinks}
+        </div>
+      </nav>
+    );
+  }
 }
 
-export default Navbar;
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
