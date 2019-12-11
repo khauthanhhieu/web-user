@@ -15,12 +15,9 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/home');
-    }
-  }
+ 
 
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/home');
@@ -47,11 +44,10 @@ class Login extends Component {
     this.props.loginUser(user);
   }
 
-
   render() {
     const { errors } = this.state;
     return (
-      <div className="auth-wrapper">
+    <div className="auth-wrapper">
         <div className="auth-inner">
           <form>
             <h3>Đăng nhập</h3>

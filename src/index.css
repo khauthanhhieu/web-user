@@ -3,6 +3,22 @@
 * {
   box-sizing: border-box;
 }
+.avatar-uploader > .ant-upload {
+  width: 128px;
+  height: 50px;
+  margin-left: 300px; 
+  margin-inline: auto;
+  
+}
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
 body {
   background: #eeeded !important;
   min-height: 100vh;
