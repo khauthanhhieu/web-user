@@ -19,6 +19,21 @@ class BodyComponent extends React.Component {
                 id: 3,
                 name: "TP Hồ Chí Minh",
                 image: "images/componentcity3.jpg"
+            },
+            {
+                id: 4,
+                name: "Hà Nội",
+                image: "images/componentcity1.jpg"
+            },
+            {
+                id: 5,
+                name: "Đà Nẵng",
+                image: "images/componentcity2.jpg"
+            },
+            {
+                id: 6,
+                name: "TP Hồ Chí Minh",
+                image: "images/componentcity3.jpg"
             }
         ];
 

@@ -6,12 +6,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import HomeStudent from './components/pages/HomeStudent';
-import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import store from './store';
-import HomeTeacher from './components/pages/UserDetail';
-import SelfIntroduce from './components/pages/SelfIntroduce';
-import User from './components/pages/User';
+import HomeTeacher from './components/pages/HomeTeacher';
+import UserDetail from './components/pages/UserDetail';
+import UpdateUser from './components/pages/UpdateUser';
+import TeacherList from './components/pages/TeacherList';
 
 function App() {
   return (
@@ -25,9 +25,11 @@ function App() {
               backgroundRepeat: 'no-repeat'
         }}>
           
-          <Route exact path="/home" component={User} />
+          <Route exact path="/teacherList" component={TeacherList} />
           <Route exact path="/hometeacher" component={HomeTeacher} />
-          <Route exact path='/' component={SelfIntroduce} />
+          <Route exact path='/teacherInfo' component={UserDetail} />
+          <Route exact path='/updateuser' component={UpdateUser} />
+
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-up" component={SignUp} />
           <Footer/>

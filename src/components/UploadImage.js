@@ -43,7 +43,7 @@ export default class AvatarImage extends Component {
 
   render() {
     const uploadButton = (
-      <Avatar size = {70} style={{ backgroundColor: '#87d068' }} icon="user" >
+      <Avatar size={150} className="setAvatar" icon="user" >
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
       </Avatar>
     );

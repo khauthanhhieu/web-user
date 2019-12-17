@@ -3,10 +3,101 @@
 * {
   box-sizing: border-box;
 }
+
+/* Teacher */
+.setAvatar{
+  background-color:lightslategrey;
+  border-radius: 100%;
+  scroll-margin-inline: inherit;
+  
+}
+.setbackground{
+ background-color: whitesmoke;
+ background-image: unset;
+}
+
+.coverteacher {
+  margin-top: 100px;
+  margin-bottom: 10px;
+
+}
+.searchboxteacher .col-md-6 {
+  padding: 1px;
+}
+
+.searchboxteacher .col-md-3 {
+  padding: 1px;
+}
+
+.searchboxteacher button.btn.btn-info {
+  width: 50%;
+  height: 40px;
+  font-size: 15px;
+  font-weight: 100;
+  padding: 0;
+}
+
+.searchboxteacher button.btn.btn-info:hover {
+  background: rgba(251, 79, 79, 0.9);
+}
+
+.searchboxteacher #selectbox {
+  width: 50%;
+  height: 40px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 5px;
+  font-size: 14px;
+  background: #efefef;
+  margin-bottom: 5px;
+}
+
+.headerteacher input[type="text"] {
+  width: 100%;
+  border-radius: 3px;
+  border: none;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 14px;
+  background: #efefef;
+  margin-bottom: 5px;
+}
+
+.searchboxteacher .col-4 {
+  width: 100%;
+}
+
+.headerteacher .row.searchboxteacher {
+  margin-top: unset;
+  padding: 5% 15%;
+}
+
+.headerteacher p {
+  color: white;
+  font-size: 15px;
+  font-style: italic;
+}
+
+.headerteacher h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 50px;
+}
+
+.headerteacher {
+  position: absolute;
+  top: 36%;
+  text-align: center;
+}
+/* EndTeacher */
+
+
+
+
 .avatar-uploader > .ant-upload {
   width: 128px;
   height: 50px;
-  margin-left: 300px; 
+  margin-left: 150px; 
   margin-inline: auto;
   
 }
@@ -244,6 +335,13 @@ html {
 .container-fluid {
   height: 100%;
 }
+.container-fluid-teacher {
+  height: 100%;
+}
+.gallery .container-fluid-teacher.bd-example {
+  padding: 0;
+  height: 450px;
+}
 
 .gallery .container-fluid.bd-example {
   padding: 0;
@@ -439,6 +537,10 @@ select#selectbox:hover {
   height: 500px;
 }
 
+.coverteacher {
+  background-color: whitesmoke;
+  height: 200px;
+}
 .navbar-light .navbar-nav .nav-link {
   color: rgba(8, 8, 8, 0.78);
 }
@@ -608,12 +710,12 @@ ul.navbar-nav.mr-auto.menucenter {
 }
 
 .componentcity {
-  height: 350px;
+  height: auto;
 }
 
 .componentcity img {
   width: 100%;
-  padding: 10%;
+  padding: 7%;
   position: relative;
   border-radius: 50%;
 }
@@ -736,7 +838,7 @@ hr {
       font-size: 11px;
   }
   .componentcity {
-      height: 140px;
+      height: auto;
       padding: 3%;
   }
   .componentcity .col-4 {

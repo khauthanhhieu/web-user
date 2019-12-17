@@ -1,4 +1,4 @@
-import { Form, Input, Button, Radio } from 'antd';
+import { Form, Input, Button, Radio, Card } from 'antd';
 import React from 'react';
 
 export default class FormUpdate extends React.Component {
@@ -29,7 +29,7 @@ export default class FormUpdate extends React.Component {
           }
         : null;
     return (
-      <div>
+      <Card>
         <Form layout={formLayout}>
           <Form.Item label="Field A" {...formItemLayout}>
             <Input placeholder="input placeholder" />
@@ -41,7 +41,7 @@ export default class FormUpdate extends React.Component {
             <Button type="primary">Submit</Button>
           </Form.Item>
         </Form>
-      </div>
+      </Card>
     );
   }
 }

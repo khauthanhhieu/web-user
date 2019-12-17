@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Card } from 'antd';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authentication';
 import UpdateImage from '../UploadImage';
 import Navbar from '../Navbar';
 
@@ -11,14 +8,14 @@ class Update extends Component {
     return (
       <div>
         <Navbar />
-        <div>
+        <div >
         <Card>
-        <div className="container" style={{ marginTop: '50px', width: '700px' }}>
+        <div className="container setbackground" style={{ marginTop: '50px', width: '450px' }}>
           <h2 style={{ marginBottom: '10px' }}>Cập nhật thông tin</h2>
           <form onSubmit={this.handleSubmit}>
           <UpdateImage />
             
-            <div className="form-group" style={{ marginLeft: '10px', marginTop:'10px'}}>
+            <div className="form-group" style={{ marginLeft: '10px', marginTop:'120px'}}>
               <span>Họ tên: </span>
               <input type="text" placeholder="Họ tên" name="name" />
             </div>
