@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Checkbox } from 'antd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authentication';
@@ -14,8 +15,6 @@ class Login extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
- 
 
   // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
@@ -44,6 +43,9 @@ class Login extends Component {
     this.props.loginUser(user);
   }
 
+  onChange(e) {
+    console.log(`checked = ${e.target.checked}`);
+  }
   render() {
     const { errors } = this.state;
     return (
@@ -70,7 +72,6 @@ class Login extends Component {
                 </label>
               </div>
             </div>
-
             <button type="submit" className="btn btn-primary btn-block">
               Đăng nhập
             </button>

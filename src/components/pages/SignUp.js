@@ -40,7 +40,6 @@ export default class SignUp extends Component {
                 </label>
               </div>
             </div>
-
             <button type="submit" className="btn btn-primary btn-block">
               Đăng ký
             </button>

@@ -13,6 +13,7 @@ import {
 } from 'reactstrap';
 import '../../assets/demo/demo.css';
 import Navbar from '../Navbar';
+import UpdateSkillTag from '../UpdateSkillTag';
 
 class UserDetail extends Component {
   render() {
@@ -39,6 +40,7 @@ class UserDetail extends Component {
                     Thích gì ghi nấy đây là mô tả <br />
                     
                   </p>
+                  <UpdateSkillTag/>
                 </CardBody>
                 <CardFooter>
                   <hr />
@@ -51,7 +53,6 @@ class UserDetail extends Component {
                       </Col>
                       <Col className="ml-auto mr-auto" lg="4" md="6" xs="6">
                         <h5>
-                          
                           <small></small>
                         </h5>
                       </Col>
