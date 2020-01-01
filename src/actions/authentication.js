@@ -1,6 +1,7 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
-import { LOGIN } from './types';
+import { LOGIN, LOGOUT } from './types';
 import setAuthToken from '../setAuthToken';
 
 export function login(username, password, role) {
@@ -24,4 +25,9 @@ export function login(username, password, role) {
       type: LOGIN, errors, user, role,
     })
   }
+}
+
+export function logout() {
+  Cookies.remove('access_token');
+  return { type: LOGOUT };
 }
