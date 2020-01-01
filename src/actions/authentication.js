@@ -1,60 +1,27 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { LOGIN } from './types';
 import setAuthToken from '../setAuthToken';
 
+export function login(username, password, role) {
+  return async (dispatch) => {
+    let errors, user;
+    const result = await axios.post(`/api/${role}/login`,
+    {
+      username,
+      password,
+    }).then(res => res.data)
+    if (result.isSuccess == false) {
+      errors = "Tên đăng nhập hoặc mật khẩu không đúng";
 
-export const registerUser = (user, history) => dispatch => {
-    axios.post('/api/users/register', user)
-            .then(res => history.push('/login'))
-            .catch(err => {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: err.response.data
-                });
-            });
-}
-
-export const loginUser = (user) => dispatch => {
-    axios.post('/api/users/login', user)
-            .then(res => {
-                const { token } = res.data;
-                localStorage.setItem('jwtToken', token);
-                setAuthToken(token);
-                localStorage.setItem('userInfo', user);
-                const decoded = jwt_decode(token);
-                dispatch(setCurrentUser(decoded));
-            })
-            .catch(err => {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: err.response.data
-                });
-            });
-}
-export const getUser = () => dispatch => {
-    axios.get('/api/users/me')
-            .then(res => {
-                const { user } = res.data;
-                localStorage.setItem('userInfo', user);
-            })
-            .catch(err => {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: err.response.data
-                });
-            });
-}
-export const setCurrentUser = decoded => {
-    return {
-        type: SET_CURRENT_USER,
-        payload: decoded
+    } else {
+      const profile = await axios.get('/api/profile',
+        {headers : {token : result.token}}
+      ).then(res => res.data)
+      user = profile.user
     }
-}
-
-export const logoutUser = (history) => dispatch => {
-    localStorage.removeItem('jwtToken');
-    setAuthToken(false);
-    dispatch(setCurrentUser({}));
-    history.push('/login');
+    dispatch({
+      type: LOGIN, errors, user, role,
+    })
+  }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logoutUser } from '../actions/authentication';
+//import { logoutUser } from '../actions/authentication';
 // eslint-disable-next-line react/prefer-stateless-function
 class Navbar extends Component {
   onLogout(e) {
@@ -54,4 +54,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default connect(mapStateToProps, { })(withRouter(Navbar));

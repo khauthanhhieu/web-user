@@ -24,7 +24,7 @@ function App() {
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat'
         }}>
-          
+          <Route exact path="/" component={HomeStudent} />
           <Route exact path="/teacherList" component={TeacherList} />
           <Route exact path="/hometeacher" component={HomeTeacher} />
           <Route exact path='/teacherInfo' component={UserDetail} />

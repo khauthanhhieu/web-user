@@ -1,67 +1,45 @@
 import React, { Component } from 'react';
-import { Checkbox } from 'antd';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authentication';
+import * as actions from '../../actions/authentication'
 
 class Login extends Component {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-      errors: {},
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/home');
-    }
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors,
-      });
-    }
-  }
-
-  handleInputChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
+  handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    // eslint-disable-next-line react/prop-types
+    this.props.onLogin(data.get('username'), data.get('password'), data.get('role')).then(() => {
+      //this.props.history.push('/');
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const user = {
-      email: this.state.email,
-      password: this.state.password,
-    };
-    this.props.loginUser(user);
-  }
-
-  onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-  }
   render() {
-    const { errors } = this.state;
+    //const { errors } = this.state;
     return (
     <div className="auth-wrapper">
         <div className="auth-inner">
-          <form>
+          <form onSubmit={this.handleSubmit}> 
             <h3>Đăng nhập</h3>
 
             <div className="form-group">
-              <label>Địa chỉ email</label>
-              <input type="email" className="form-control" placeholder="Nhập email" />
+              <label>Tên đăng nhập</label>
+              <input type="text" id="username" name="username" className="form-control" placeholder="Nhập username" />
             </div>
 
             <div className="form-group">
               <label>Mật khẩu</label>
-              <input type="password" className="form-control" placeholder="Nhập password" />
+              <input type="password" id="password" name="password" className="form-control" placeholder="Nhập password" />
+            </div>
+            <div className="form-group d-flex justify-content-between">
+              <label>Vai trò</label>
+              <select id="role" name="role" class="col-sm-8">
+                <option value="student" selected>Người học</option>
+                <option value="teacher">Người dạy</option>
+              </select>
             </div>
 
             <div className="form-group">
@@ -76,7 +54,7 @@ class Login extends Component {
               Đăng nhập
             </button>
             <p className="forgot-password text-right">
-              Quên mật khẩu <a href="#">password?</a>
+              <a href="#">Quên mật khẩu ?</a>
             </p>
           </form>
         </div>
@@ -85,15 +63,13 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+const mapDispatchToProps = (dispatch) => ({
+  onLogin: (username, password, role) => dispatch(actions.login(username, password, role)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
