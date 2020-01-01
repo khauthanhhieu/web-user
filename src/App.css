@@ -27,3 +27,7 @@ textarea {
   width: 340px;
   height: 150px;
 }
+
+.ql-editor{
+  min-height:200px;
+}
