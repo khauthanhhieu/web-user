@@ -22,3 +22,8 @@
 .App-link {
   color: #09d3ac;
 }
+
+textarea {
+  width: 340px;
+  height: 150px;
+}

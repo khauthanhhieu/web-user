@@ -81,10 +81,10 @@ export default class SignUp extends Component {
         <div class="d-flex justify-content-between">
           <button type="button" className="btn btn-primary">
             Quay lại
-        </button>
+          </button>
           <button type="button" className="btn btn-primary">
             Tiếp theo
-        </button>
+          </button>
         </div>
 
       </>
@@ -92,7 +92,21 @@ export default class SignUp extends Component {
 
     const teacherPage = (
       <>
-
+        <div className="form-group">
+          <label>Chọn tag kĩ năng của bạn</label>
+          <div class="container row">
+            <div className="custom-control custom-checkbox col-sm-4">
+              <input type="checkbox" className="custom-control-input" id="customCheck1" />
+              <label className="custom-control-label" htmlFor="customCheck1">
+                C++
+                </label>
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <label>Tự giới thiệu về bản thân</label>
+          <textarea />
+        </div>
       </>
     )
 
@@ -105,10 +119,6 @@ export default class SignUp extends Component {
             {/* {firstPage} */}
             {/* {addressPage} */}
             {teacherPage}
-
-            <button type="submit" className="btn btn-primary btn-block">
-              Đăng ký
-            </button>
 
             <p className="forgot-password text-right">
               Đã có tài khoản <a href="#">đăng nhập ?</a>
