@@ -13,6 +13,7 @@ export default class SignUp extends Component {
       cities: [],
       districts: [],
       wards: [],
+      skills: [],
     }
     this.handleChange = this.handleChange.bind(this)
     this.goNextPage = this.goNextPage.bind(this)
@@ -27,7 +28,7 @@ export default class SignUp extends Component {
 
     const id = event.target.value;
     Axios.get(`/api/address/district?id=${id}`).then(res => res.data.districts).then(
-      (districts) => this.setState({ districts })
+      (districts) => this.setState({ districts, wards: [] })
     )
   }
 
@@ -44,6 +45,9 @@ export default class SignUp extends Component {
     console.log("mount")
     Axios.get('/api/address/city').then(res => res.data.cities).then(
       (cities) => this.setState({ cities })
+    )
+    Axios.get('/api/skill').then(res => res.data.skills).then(
+      (skills) => this.setState({ skills })
     )
   }
 
@@ -66,9 +70,7 @@ export default class SignUp extends Component {
     console.log("render")
     const now = new Date()
     const defaultBirth = new Date(now.getFullYear() - 18, now.getMonth() + 1, now.getDate()).toISOString().substr(0, 10)
-    const { page, isTeacher } = this.state;
-
-    const { cities, districts, wards } = this.state
+    const { page, isTeacher, cities, districts, wards, skills } = this.state;
 
     const btnNext = (
       <button type="button" className="btn btn-primary" onClick={this.goNextPage}>
@@ -97,22 +99,22 @@ export default class SignUp extends Component {
       <>
         <div className="form-group">
           <label>Họ và tên</label>
-          <input type="text" className="form-control" placeholder="Nguyễn Văn A" />
+          <input type="text" id="fullname" name="fullname" className="form-control" placeholder="Nguyễn Văn A" />
         </div>
 
         <div className="form-group">
           <label>Địa chỉ email</label>
-          <input type="email" className="form-control" placeholder="abcxyz@gmail.com" />
+          <input type="email" id="email" name="email" className="form-control" placeholder="abcxyz@gmail.com" />
         </div>
 
         <div className="form-group d-flex flex-column">
           <label className="p-2">Ngày sinh</label>
-          <input className="p-2" type="date" defaultValue={defaultBirth}></input>
+          <input className="p-2" type="date" defaultValue={defaultBirth} id="birthday" name="birthday"></input>
         </div>
 
         <div className="form-group d-flex flex-column">
           <label className="p-2">Giới tính</label>
-          <select className="p-2">
+          <select className="p-2" id="gender" name="gender">
             <option value="Nam">Nam</option>
             <option value="Nữ">Nữ</option>
             <option value="Khác">Khác</option>
@@ -127,38 +129,38 @@ export default class SignUp extends Component {
       <>
         <div className="form-group">
           <label>Tên đăng nhập</label>
-          <input type="text" className="form-control" placeholder="anguyen" />
+          <input type="text" id="username" name="username" className="form-control" placeholder="anguyen" />
         </div>
 
         <div className="form-group">
           <label>Mật khẩu</label>
-          <input type="password" className="form-control" />
+          <input type="password" id="password" name="password" className="form-control" />
         </div>
 
         <div className="form-group">
           <label>Địa chỉ</label>
-          <select id="citySelect" className="form-control mb-3" onChange={this.handleChangeCity} >
+          <select id="city" name="city" className="form-control mb-3" onChange={this.handleChangeCity} >
             <option value="apple" selected>Tỉnh/Thành phố</option>
             {
               cities.map((e, key) => {
-                return (<option key={key} value = {e.ID}>{e.name}</option>)
+                return (<option key={key} value={e.ID}>{e.name}</option>)
               })
             }
 
           </select>
-          <select id="districtSelect" className="form-control mb-3" onChange={this.handleChangeDistrict} >
+          <select id="district" name="district" className="form-control mb-3" onChange={this.handleChangeDistrict} >
             <option value="apple" selected>Quận/Huyện</option>
             {
               districts.map((e, key) => {
-                return (<option key={key} value = {e.ID}>{e.name}</option>)
+                return (<option key={key} value={e.ID}>{e.name}</option>)
               })
             }
           </select>
-          <select id="wardSelect" className="form-control mb-3" >
+          <select id="ward" name="ward" className="form-control mb-3" >
             <option value="apple" selected>Xã/Phương</option>
             {
               wards.map((e, key) => {
-                return (<option key={key} value = {e.ID}>{e.name}</option>)
+                return (<option key={key} value={e.ID}>{e.name}</option>)
               })
             }
           </select>
@@ -167,8 +169,8 @@ export default class SignUp extends Component {
 
         <div className="form-group">
           <div className="custom-control custom-checkbox">
-            <input type="checkbox" className="custom-control-input" id="customCheck1" checked={isTeacher} onChange={this.handleChangeRole} />
-            <label className="custom-control-label" htmlFor="customCheck1">
+            <input type="checkbox" className="custom-control-input" id="isTeacher" checked={isTeacher} onChange={this.handleChangeRole} />
+            <label className="custom-control-label" htmlFor="isTeacher">
               Bạn là giảng viên?
             </label>
           </div>
@@ -189,12 +191,18 @@ export default class SignUp extends Component {
         <div className="form-group">
           <label>Chọn tag kĩ năng của bạn</label>
           <div class="container row">
-            <div className="custom-control custom-checkbox col-sm-4">
-              <input type="checkbox" className="custom-control-input" id="customCheck1" />
-              <label className="custom-control-label" htmlFor="customCheck1">
-                C++
-              </label>
-            </div>
+            {
+              skills.map((e, key) => {
+                return (
+                  <div className="custom-control custom-checkbox col-sm-4">
+                    <input type="checkbox" className="custom-control-input" name="skills" id={e.tag} />
+                    <label className="custom-control-label" htmlFor={e.tag}>
+                      {e.name}
+                    </label>
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
 
