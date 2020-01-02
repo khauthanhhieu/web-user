@@ -1,16 +1,52 @@
 import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Axios from 'axios';
 
 export default class SignUp extends Component {
   constructor() {
     super()
-    this.state = { page: 0, text: '', isTeacher: false }
+    this.state = {
+      page: 0,
+      text: '',
+      isTeacher: false,
+      cities: [],
+      districts: [],
+      wards: [],
+    }
     this.handleChange = this.handleChange.bind(this)
     this.goNextPage = this.goNextPage.bind(this)
     this.goBackPage = this.goBackPage.bind(this)
     this.handleChangeRole = this.handleChangeRole.bind(this)
+    this.handleChangeCity = this.handleChangeCity.bind(this)
+    this.handleChangeDistrict = this.handleChangeDistrict.bind(this)
   }
+
+  handleChangeCity(event) {
+    event.preventDefault();
+
+    const id = event.target.value;
+    Axios.get(`/api/address/district?id=${id}`).then(res => res.data.districts).then(
+      (districts) => this.setState({ districts })
+    )
+  }
+
+  handleChangeDistrict(event) {
+    event.preventDefault()
+
+    const id = event.target.value;
+    Axios.get(`/api/address/ward?id=${id}`).then(res => res.data.wards).then(
+      (wards) => this.setState({ wards })
+    )
+  }
+
+  componentDidMount() {
+    console.log("mount")
+    Axios.get('/api/address/city').then(res => res.data.cities).then(
+      (cities) => this.setState({ cities })
+    )
+  }
+
   handleChangeRole() {
     const currRole = this.state.isTeacher
     this.setState({ isTeacher: !currRole })
@@ -27,9 +63,12 @@ export default class SignUp extends Component {
     this.setState({ page: currPage - 1 })
   }
   render() {
+    console.log("render")
     const now = new Date()
     const defaultBirth = new Date(now.getFullYear() - 18, now.getMonth() + 1, now.getDate()).toISOString().substr(0, 10)
     const { page, isTeacher } = this.state;
+
+    const { cities, districts, wards } = this.state
 
     const btnNext = (
       <button type="button" className="btn btn-primary" onClick={this.goNextPage}>
@@ -98,14 +137,30 @@ export default class SignUp extends Component {
 
         <div className="form-group">
           <label>Địa chỉ</label>
-          <select id="citySelect" class="form-control mb-3" >
+          <select id="citySelect" className="form-control mb-3" onChange={this.handleChangeCity} >
             <option value="apple" selected>Tỉnh/Thành phố</option>
+            {
+              cities.map((e, key) => {
+                return (<option key={key} value = {e.ID}>{e.name}</option>)
+              })
+            }
+
           </select>
-          <select id="citySelect" class="form-control mb-3" >
+          <select id="districtSelect" className="form-control mb-3" onChange={this.handleChangeDistrict} >
             <option value="apple" selected>Quận/Huyện</option>
+            {
+              districts.map((e, key) => {
+                return (<option key={key} value = {e.ID}>{e.name}</option>)
+              })
+            }
           </select>
-          <select id="citySelect" class="form-control mb-3" >
+          <select id="wardSelect" className="form-control mb-3" >
             <option value="apple" selected>Xã/Phương</option>
+            {
+              wards.map((e, key) => {
+                return (<option key={key} value = {e.ID}>{e.name}</option>)
+              })
+            }
           </select>
           <input type="text" className="form-control" placeholder="Số nhà, tên đường"></input>
         </div>
